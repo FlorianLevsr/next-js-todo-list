@@ -1,11 +1,11 @@
-import { useState, FC, FormEvent, ChangeEvent } from 'react';
+import React, { useState, FC, FormEvent, ChangeEvent } from 'react';
 import Layout from '../components/Layout'
 import { GetServerSideProps } from 'next'
 import { Task } from '../interfaces'
 import { gql } from "graphql-request"
 import useSWR from 'swr'
 
-interface IndexPageData {
+export interface IndexPageData {
   allTasks: {
     data: Task[];
   }
@@ -169,7 +169,10 @@ const IndexPage: FC<IndexPageProps> = ({ initialData }) => {
         {data.allTasks.data.map(
           task =>
             <li key={task._id}>
-              {task.title} - {task.completed ? 'done' : 'to do'}
+              <h3>
+                {task.title}
+              </h3>
+              {task.completed ? 'done' : 'to do'}
               <div><input type="text" placeholder="Rename task..." onChange={(event: ChangeEvent<HTMLInputElement>) => setRenameTask(event.target.value)}/><button onClick={() => handleTaskNameUpdate(task._id)}>Rename</button></div>
               <div>
                 <button onClick={() => handleDeleteTask(task._id)}>Remove</button>
